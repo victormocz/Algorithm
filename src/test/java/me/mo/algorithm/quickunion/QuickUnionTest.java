@@ -20,16 +20,26 @@ public class QuickUnionTest {
     }
 
     @Test
-    public void union_unionTwoIdx_shouldbeConnected() {
+    public void union_unionTwoIdx_shouldReturnTrue() {
         quickUnion.union(0,1);
+        quickUnion.union(1,2);
+        quickUnion.union(2,3);
         assertTrue(quickUnion.isConnected(0,1));
         assertTrue(quickUnion.isConnected(1,0));
+        assertTrue(quickUnion.isConnected(0,2));
+        assertTrue(quickUnion.isConnected(0,3));
+        assertTrue(quickUnion.isConnected(3,0));
     }
 
     @Test
-    public void union_checkComponentThatNotConnected() {
+    public void union_checkComponentThatNotConnected_shouldReturnFalse() {
         assertFalse(quickUnion.isConnected(5,2));
         assertFalse(quickUnion.isConnected(2,5));
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void union_withInvalidIndex_throwIndexOutOfBoundsException() {
+        quickUnion.union(200,300);
     }
 
     @After
